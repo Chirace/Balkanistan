@@ -1,3 +1,27 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+balkanistan_accueil:
+  path: /accueil
+  controller: App\Controller\MairieController::accueil
+
+mairie_accueil:
+  path: /mairie
+  controller: App\Controller\MairieController::accueil
+
+mairie_afficher:
+  path: /afficher/{numero}
+  controller: App\Controller\MairieController::afficher
+
+parti_accueil:
+  path: /Parti
+  controller: App\Controller\PartiController::accueil
+
+politicien_accueil:
+  path: /Politicien
+  controller: App\Controller\PoliticienController::accueil
+
+affaire_accueil:
+  path: /Affaire
+  controller: App\Controller\AffaireController::accueil
