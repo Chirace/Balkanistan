@@ -12,6 +12,10 @@ mairie_afficher:
   requirements:
     numero: '\d{1,2}'
 
+mairie_amiens:
+ path: /amiens
+ controller: App\Controller\MairieController::amiens
+
 parti_accueil:
   path: /Parti
   controller: App\Controller\PartiController::accueil
