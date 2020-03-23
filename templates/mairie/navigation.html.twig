@@ -1,0 +1,4 @@
+{% for mairie in mairies %}
+    - <a href="{{ path('mairie_voir', { 'id': mairie.id }) }}">
+    {{mairie.ville}}</a>
+{% endfor %}

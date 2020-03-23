@@ -1,0 +1,9 @@
+{% extends "mairie/layoutmairie.html.twig" %}
+{% block titre %}
+    {{ parent() }} - modifier une mairie
+{% endblock %}
+{% block contenu %}
+    {% include "mairie/formulaire.html.twig" %}
+    <p>Attention ! vous modifiez une mairie existante.</p>
+    <p><a href="{{ path('mairie_accueil') }}">Abandonner</a></p>
+{% endblock %}

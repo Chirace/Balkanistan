@@ -6,11 +6,27 @@ mairie_accueil:
   path: /mairie
   controller: App\Controller\MairieController::accueil
 
-mairie_afficher:
+mairie_navigation:
+  path: /mairie/navigation
+  controller: App\Controller\MairieController::navigation
+
+mairie_afficher: #Plus nécessaire
   path: /afficher/{numero}
   controller: App\Controller\MairieController::afficher
   requirements:
     numero: '\d{1,2}'
+
+mairie_voir:
+  path: /mairie/voir/{id}
+  controller: App\Controller\MairieController::voir
+  requirements:
+    numero: \d+
+
+mairie_ajouter:
+  path: /mairie/ajouter/{ville}
+  controller: App\Controller\MairieController::ajouter
+  requirements:
+    ville: "[a-zA-Z]{1,50}"
 
 mairie_amiens:
  path: /amiens
