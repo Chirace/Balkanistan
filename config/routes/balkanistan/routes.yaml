@@ -11,7 +11,7 @@ mairie_navigation:
   controller: App\Controller\MairieController::navigation
 
 mairie_afficher: #Plus nécessaire
-  path: /afficher/{numero}
+  path: /mairie/afficher/{numero}
   controller: App\Controller\MairieController::afficher
   requirements:
     numero: '\d{1,2}'
@@ -44,10 +44,70 @@ parti_accueil:
   path: /Parti
   controller: App\Controller\PartiController::accueil
 
+parti_navigation:
+  path: /parti/navigation
+  controller: App\Controller\PartiController::navigation
+
+parti_voir:
+  path: /parti/voir/{id}
+  controller: App\Controller\PartiController::voir
+  requirements:
+    numero: \d+
+
+parti_ajouter:
+  path: /parti/ajouter/{nom}
+  controller: App\Controller\PartiController::ajouter
+  requirements:
+    nom: "[a-zA-Z]{1,50}"
+
+parti_ajouter2:     
+  path:  /parti/ajouter2    
+  controller: App\Controller\PartiController::ajouter2
+
 politicien_accueil:
   path: /Politicien
   controller: App\Controller\PoliticienController::accueil
 
+politicien_navigation:
+  path: /politicien/navigation
+  controller: App\Controller\PoliticienController::navigation
+
+politicien_voir:
+  path: /politicien/voir/{id}
+  controller: App\Controller\PoliticienController::voir
+  requirements:
+    numero: \d+
+
+politicien_ajouter:
+  path: /politicien/ajouter/{nom}
+  controller: App\Controller\PoliticienController::ajouter
+  requirements:
+    nom: "[a-zA-Z]{1,50}"
+
+politicien_ajouter2:     
+  path:  /politicien/ajouter2    
+  controller: App\Controller\PoliticienController::ajouter2
+
 affaire_accueil:
   path: /Affaire
   controller: App\Controller\AffaireController::accueil
+
+affaire_navigation:
+  path: /affaire/navigation
+  controller: App\Controller\AffaireController::navigation
+
+affaire_voir:
+  path: /affaire/voir/{id}
+  controller: App\Controller\AffaireController::voir
+  requirements:
+    numero: \d+
+
+affaire_ajouter:
+  path: /affaire/ajouter/{nom}
+  controller: App\Controller\AffaireController::ajouter
+  requirements:
+    nom: "[a-zA-Z]{1,50}"
+
+affaire_ajouter2:     
+  path:  /affaire/ajouter2    
+  controller: App\Controller\AffaireController::ajouter2

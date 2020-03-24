@@ -1,0 +1,17 @@
+{% block titre %}
+    <h1>Balkanistan : Accueil Parti</h1>
+{% endblock %}
+
+{% block body %}
+    <h1>Partis :</h1>
+
+    <ul>
+        {% for parti in partis %}
+            <li>Parti :{{ parti.nom }} <a href="{{ path('parti_voir', { 'id': parti.id }) }}">voir le parti</a></li>
+        {% endfor %}
+    </ul> 
+
+    <p><a href="{{ path('parti_ajouter2') }}">ajouter un parti</a></p>
+
+    <p><a href="{{ path('balkanistan_accueil') }}">retour</a> à la page d'accueil.</p>
+{% endblock %}

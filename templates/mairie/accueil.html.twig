@@ -3,21 +3,15 @@
 {% endblock %}
 
 {% block body %}
-
-
     <h1>Mairies :</h1>
 
     <ul>
         {% for mairie in mairies %}
-            <li>Mairie :{{ mairie.ville }} <a href="{{ path('mairie_voir', { 'id': mairie.id }) }}">
-            voir la mairie</a></li>
+            <li>Mairie :{{ mairie.ville }} <a href="{{ path('mairie_voir', { 'id': mairie.id }) }}">voir la mairie</a></li>
         {% endfor %}
     </ul> 
 
-    
-
-    <p><a href="{{ path('mairie_ajouter2') }}">
-    ajouter une mairie</a></p>
+    <p><a href="{{ path('mairie_ajouter2') }}">ajouter une mairie</a></p>
 
     <p><a href="{{ path('balkanistan_accueil') }}">retour</a> à la page d'accueil.</p>
 {% endblock %}

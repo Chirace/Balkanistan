@@ -1,0 +1,20 @@
+{% block titre %}
+    <h1>Balkanistan : Accueil Affaire</h1>
+{% endblock %}
+
+{% block body %}
+    <h1>Affaires :</h1>
+
+    <ul>
+        {% for affaire in affaires %}
+            <li>Affaire :{{ affaire.designation }} 
+                <a href="{{ path('affaire_voir', { 'id': affaire.id }) }}">voir l'affaire</a>
+                <a href="{{ path('affaire_modifier', { 'id': affaire.id }) }}">modifier l'affaire</a>
+            </li>
+        {% endfor %}
+    </ul> 
+
+    <p><a href="{{ path('affaire_ajouter2') }}">ajouter une affaire</a></p>
+
+    <p><a href="{{ path('balkanistan_accueil') }}">retour</a> à la page d'accueil.</p>
+{% endblock %}

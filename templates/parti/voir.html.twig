@@ -1,0 +1,10 @@
+{% extends "mairie/layoutmairie.html.twig" %}
+{% block titre %}
+    {{ parent() }} : Parti {{ Parti.nom }}
+{% endblock %}
+{% block contenu %}
+<ul>
+    <li>nom {{ parti.nom }}</li>
+    <li>politiciens associés : </li>
+</ul>
+{% endblock %}

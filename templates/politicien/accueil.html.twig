@@ -1,0 +1,18 @@
+{% block titre %}
+    <h1>Balkanistan : Accueil Politicien</h1>
+{% endblock %}
+
+{% block body %}
+    <h1>Politiciens :</h1>
+
+    <ul>
+        {% for politicien in politiciens %}
+            <li>Politicien : {{ politicien.nom }}
+            <a href="{{ path('politicien_voir', { 'id': politicien.id }) }}">voir le politicien</a></li>
+        {% endfor %}
+    </ul> 
+
+    <p><a href="{{ path('politicien_ajouter2') }}">ajouter un politicien</a></p>
+
+    <p><a href="{{ path('balkanistan_accueil') }}">retour</a> à la page d'accueil.</p>
+{% endblock %}
