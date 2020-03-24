@@ -4,6 +4,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Politicien;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType; 
 
 class PoliticienController extends AbstractController {
     public function accueil(Session $session) {
@@ -12,11 +17,11 @@ class PoliticienController extends AbstractController {
         else
             $session->set('nbreFois', 1);
 
-        //$affaires = $this->getDoctrine()->getRepository(Mairie::class)->findAll();
+        $politiciens = $this->getDoctrine()->getRepository(Politicien::class)->findAll();
 
-        return $this->render('Politicien/accueil.html.twig', array('nbreFois' => $session->get('nbreFois')));
+        //return $this->render('Politicien/accueil.html.twig', array('nbreFois' => $session->get('nbreFois')));
         
-        //return $this->render('mairie/accueil.html.twig', array('mairies' => $mairies));
+        return $this->render('politicien/accueil.html.twig', array('politiciens' => $politiciens));
     }
 
     public function navigation() {
@@ -43,10 +48,10 @@ class PoliticienController extends AbstractController {
     }
 
     public function ajouter2(Request $request) {
-        $politicien = new Mairie;
+        $politicien = new Politicien;
         $form = $this->createFormBuilder($politicien)->add('nom', TextType::class)
                      ->add('sexe', TextType::class)
-                     ->add('age', TextType::class)
+                     ->add('age', IntegerType::class)
                      ->add('envoyer', SubmitType::class)->getForm();         
         $form->handleRequest($request);         
         if ($form->isSubmitted()) {             

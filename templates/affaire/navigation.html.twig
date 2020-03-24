@@ -1,0 +1,4 @@
+{% for affaire in affaires %}
+    - <a href="{{ path('affaire_voir', { 'id': affaire.id }) }}">
+    {{affaire.designation}}</a>
+{% endfor %}

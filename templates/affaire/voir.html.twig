@@ -1,9 +1,10 @@
-{% extends "mairie/layoutmairie.html.twig" %}
+{% extends "affaire/layoutaffaire.html.twig" %}
 {% block titre %}
     {{ parent() }} : Affaire {{ affaire.designation }}
 {% endblock %}
 {% block contenu %}
 <ul>
-    <li>ville {{ affaire.designation }}</li>
+    <li>Designation : {{ affaire.designation }}</li>
+    <li>Politiciens associés : </li>
 </ul>
 {% endblock %}

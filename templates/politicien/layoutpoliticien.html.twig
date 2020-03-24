@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="navigation" ><hr />
+            <a href="{{ path('politicien_accueil') }}">accueil</a> -
+            {{ render(path('politicien_navigation')) }} }}
+        <hr /></div>
+        <h1>{% block titre %}Politiciens
+            {% endblock %}
+        </h1>
+        <div id="contenu" >
+            {% block contenu %}
+            {% endblock %}
+        </div>
+        <hr />
+        <div id="pied_de_page" >
+            <p>&copy; DF.</p>
+        </div>
+    </body>
+</html>

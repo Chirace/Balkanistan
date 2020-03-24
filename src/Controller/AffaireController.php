@@ -4,6 +4,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Affaire;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType; 
 
 class AffaireController extends AbstractController {
     public function accueil(Session $session) {
@@ -12,11 +17,11 @@ class AffaireController extends AbstractController {
         else
             $session->set('nbreFois', 1);
 
-        //$affaires = $this->getDoctrine()->getRepository(Mairie::class)->findAll();
+        $affaires = $this->getDoctrine()->getRepository(Affaire::class)->findAll();
 
-        return $this->render('Affaire/accueil.html.twig', array('nbreFois' => $session->get('nbreFois')));
+        //return $this->render('Affaire/accueil.html.twig', array('nbreFois' => $session->get('nbreFois')));
         
-        //return $this->render('mairie/accueil.html.twig', array('mairies' => $mairies));
+        return $this->render('affaire/accueil.html.twig', array('affaires' => $affaires));
     }
 
     public function navigation() {

@@ -4,6 +4,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Parti;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType; 
 
 class PartiController extends AbstractController {
     public function accueil(Session $session) {
@@ -12,16 +17,16 @@ class PartiController extends AbstractController {
         else
             $session->set('nbreFois', 1);
 
-        //$affaires = $this->getDoctrine()->getRepository(Mairie::class)->findAll();
+        $partis = $this->getDoctrine()->getRepository(Parti::class)->findAll();
 
-        return $this->render('Parti/accueil.html.twig', array('nbreFois' => $session->get('nbreFois')));
+        //return $this->render('Parti/accueil.html.twig', array('nbreFois' => $session->get('nbreFois')));
         
-        //return $this->render('mairie/accueil.html.twig', array('mairies' => $mairies));
+        return $this->render('parti/accueil.html.twig', array('partis' => $partis));
     }
 
     public function navigation() {
         $partis = $this->getDoctrine()->getRepository(Parti::class)->findAll();
-        return $this->render('parti/navigation.html.twig', array('parties' => $partis));
+        return $this->render('parti/navigation.html.twig', array('partis' => $partis));
     }
 
     public function voir($id) {
