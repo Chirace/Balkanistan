@@ -1,17 +1,23 @@
-{% extends "mairie/layoutmairie.html.twig" %}
 {% block titre %}
-    {{ parent() }} : Accueil Mairie
+    <h1>Balkanistan : Accueil Mairie</h1>
 {% endblock %}
 
 {% block body %}
+
+
     <h1>Mairies :</h1>
 
     <ul>
         {% for mairie in mairies %}
-            <li>Mairie :{{ mairie.ville }}</li>
+            <li>Mairie :{{ mairie.ville }} <a href="{{ path('mairie_voir', { 'id': mairie.id }) }}">
+            voir la mairie</a></li>
         {% endfor %}
     </ul> 
 
+    
+
+    <p><a href="{{ path('mairie_ajouter2') }}">
+    ajouter une mairie</a></p>
+
     <p><a href="{{ path('balkanistan_accueil') }}">retour</a> à la page d'accueil.</p>
-    <p><i>page visitée {{ nbreFois }} fois.</i></p> 
 {% endblock %}

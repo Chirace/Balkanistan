@@ -28,6 +28,14 @@ mairie_ajouter:
   requirements:
     ville: "[a-zA-Z]{1,50}"
 
+mairie_ajouter2:     
+  path:  /mairie/ajouter2    
+  controller: App\Controller\MairieController::ajouter2
+
+#mairie_modifier:     #On ne modifie pas les mairies
+#  path:  /mairie/modifier    
+#  controller: App\Controller\MairieController::modifier
+
 mairie_amiens:
  path: /amiens
  controller: App\Controller\MairieController::amiens

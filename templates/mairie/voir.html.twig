@@ -1,11 +1,9 @@
 {% extends "mairie/layoutmairie.html.twig" %}
 {% block titre %}
-    {{ parent() }} : Mairie (id={{ mairie.id }})
+    {{ parent() }} : Mairie {{ mairie.ville }}
 {% endblock %}
 {% block contenu %}
 <ul>
-    <li>batiment {{ mairie.ville }}</li>
+    <li>ville {{ mairie.ville }}</li>
 </ul>
-<p><a href="{{ path('mairie_modifier', { 'id': mairie.id }) }}">
- modifier la mairie</a></p>
 {% endblock %}

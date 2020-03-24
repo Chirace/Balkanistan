@@ -5,6 +5,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Mairie;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType; 
 
 class MairieController extends AbstractController {
     public function accueil(Session $session) {
@@ -15,9 +19,9 @@ class MairieController extends AbstractController {
 
         $mairies = $this->getDoctrine()->getRepository(Mairie::class)->findAll();
 
-        //return $this->render('@SalleTp/Salle/accueil.html.twig', array('nbreFois' => $session->get('nbreFois')));
-        //return new Response("ici l'accueil !");
-        return $this->render('mairie/accueil.html.twig', /*array('nbreFois' => $session->get('nbreFois')), */array('mairies' => $mairies));
+        //return $this->render('Mairie/accueil.html.twig', array('nbreFois' => $session->get('nbreFois')));
+        
+        return $this->render('mairie/accueil.html.twig', array('mairies' => $mairies));
     }
 
     public function navigation() {
@@ -52,31 +56,27 @@ class MairieController extends AbstractController {
         return $this->redirectToRoute('mairie_voir', array('id' => $mairie->getId()));
     }
 
-    public function modifier($id) {
+    public function ajouter2(Request $request) {
+        $mairie = new Mairie;
+        $form = $this->createFormBuilder($mairie)->add('ville', TextType::class)
+                     ->add('envoyer', SubmitType::class)->getForm();         
+        $form->handleRequest($request);         
+        if ($form->isSubmitted()) {             
+            $entityManager = $this->getDoctrine()->getManager();              
+            $entityManager->persist($mairie);              
+            $entityManager->flush();              
+            return $this->redirectToRoute('mairie_voir', array('id' => $mairie->getId()));        
+        }         
+        return $this->render('mairie/ajouter2.html.twig', array('monFormulaire' => $form->createView())); 
+    } 
+
+    /*public function modifier($id) {
         $mairie = $this->getDoctrine()->getRepository(Mairie::class)->find($id);
         if(!$mairie)
             throw $this->createNotFoundException('Mairie[id='.$id.'] inexistante');
         $form = $this->createForm(MairieType::class, $mairie,['action' => $this->generateUrl('mairie_modifier_suite', array('id' => $mairie->getId()))]);
         $form->add('submit', SubmitType::class, array('label' => 'Modifier'));
-        return $this->render('salle/modifier.html.twig',array('monFormulaire' => $form->createView()));
-        }
-
-    /*public function modifierSuite(Request $request, $id) {
-        $mairie = $this->getDoctrine()->getRepository(Mairie::class)->find($id);
-        if(!$mairie)
-            throw $this->createNotFoundException('Mairie[id='.$id.'] inexistante');
-        $form = $this->createForm(MairieType::class, $mairie,
-        ['action' => $this->generateUrl('salle_tp_modifier_suite', array('id' => $mairie->getId()))]);
-        $form->add('submit', SubmitType::class, array('label' => 'Modifier'));
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($mairie);
-            $entityManager->flush();
-            $url = $this->generateUrl('mairie_voir', array('id' => $mairie->getId()));
-            return $this->redirect($url);
-        }
-        return $this->render('mairie/modifier.html.twig', array('monFormulaire' => $form->createView()));
+        return $this->render('mairie/modifier.html.twig',array('monFormulaire' => $form->createView()));
     }*/
 
        
