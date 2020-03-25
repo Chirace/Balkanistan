@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType; 
 
+use App\Form\Type\AffaireType;
+
 class AffaireController extends AbstractController {
     public function accueil(Session $session) {
         if ($session->has('nbreFois'))
@@ -57,5 +59,33 @@ class AffaireController extends AbstractController {
             return $this->redirectToRoute('affaire_voir', array('id' => $affaire->getId()));        
         }         
         return $this->render('affaire/ajouter2.html.twig', array('monFormulaire' => $form->createView())); 
-    } 
+    }
+
+    public function modifier($id) {
+        $affaire = $this->getDoctrine()->getRepository(Affaire::class)->find($id);
+        if(!$affaire)
+            throw $this->createNotFoundException('Affaire[id='.$id.'] inexistante');
+        $form = $this->createForm(AffaireType::class, $affaire, ['action' => $this->generateUrl('affaire_modifier_suite', array('id' => $affaire->getId()))]);
+        $form->add('submit', SubmitType::class, array('label' => 'Modifier'));
+        return $this->render('affaire/modifier.html.twig', array('monFormulaire' => $form->createView()));
+    }
+
+    public function modifierSuite(Request $request, $id) {
+        $affaire = $this->getDoctrine()->getRepository(Affaire::class)->find($id);
+        if(!$affaire)
+            throw $this->createNotFoundException('Affaire[id='.$id.'] inexistante');
+        $form = $this->createForm(AffaireType::class, $affaire,
+        ['action' => $this->generateUrl('affaire_modifier_suite',
+        array('id' => $affaire->getId()))]);
+        $form->add('submit', SubmitType::class, array('label' => 'Modifier'));
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($affaire);
+            $entityManager->flush();
+            $url = $this->generateUrl('affaire_voir', array('id' => $affaire->getId()));
+            return $this->redirect($url);
+        }
+        return $this->render('affaire/modifier.html.twig', array('monFormulaire' => $form->createView()));
+    }
 }
