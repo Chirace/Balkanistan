@@ -1,3 +1,7 @@
+balkanistan_index:
+  path: /
+  controller: App\Controller\BalkanistanController::accueil
+
 balkanistan_accueil:
   path: /accueil
   controller: App\Controller\BalkanistanController::accueil
@@ -87,6 +91,23 @@ politicien_ajouter:
 politicien_ajouter2:     
   path:  /politicien/ajouter2    
   controller: App\Controller\PoliticienController::ajouter2
+
+politicien_modifier:
+  path:  /politicien/modifier/{id}
+  controller: App\Controller\PoliticienController::modifier
+  requirements:
+    id: \d+
+
+politicien_modifier_suite:
+  path: /politicien/modifierSuite/{id}
+  controller: App\Controller\PoliticienController::modifierSuite
+  methods: POST
+
+politicien_supprimer:
+  path: /politicien/supprimer/{id}
+  controller: App\Controller\PoliticienController::supprimer
+  requirements:
+    numero: \d+
 
 affaire_accueil:
   path: /Affaire

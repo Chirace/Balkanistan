@@ -8,7 +8,10 @@
     <ul>
         {% for politicien in politiciens %}
             <li>Politicien : {{ politicien.nom }}
-            <a href="{{ path('politicien_voir', { 'id': politicien.id }) }}">voir le politicien</a></li>
+                <a href="{{ path('politicien_voir', { 'id': politicien.id }) }}">voir le politicien</a>
+                <a href="{{ path('politicien_modifier', { 'id': politicien.id }) }}">modifier le politicien</a>
+                <a href="{{ path('politicien_supprimer', { 'id': politicien.id }) }}">supprimer le politicien</a>
+            </li>
         {% endfor %}
     </ul> 
 

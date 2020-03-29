@@ -33,6 +33,7 @@ class PartiController extends AbstractController {
         $parti = $this->getDoctrine()->getRepository(Parti::class)->find($id);
         if(!$parti)
             throw $this->createNotFoundException('Parti[id='.$id.'] inexistante');
+        //$politiciens = $parti->
         return $this->render('parti/voir.html.twig', array('parti' => $parti));
     }
 

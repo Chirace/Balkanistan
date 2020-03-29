@@ -5,5 +5,11 @@
 {% block contenu %}
 <ul>
     <li>ville {{ mairie.ville }}</li>
+    <li>Candidats associés : </li>
+    <ul>
+        {% for politicien in mairie.politiciens %}
+            <li>{{ politicien.nom }}</li>
+        {% endfor %}
+    </ul>
 </ul>
 {% endblock %}

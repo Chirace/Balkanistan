@@ -1,0 +1,9 @@
+{% extends "politicien/layoutpoliticien.html.twig" %}
+{% block titre %}
+    {{ parent() }} - modifier un politicien
+{% endblock %}
+{% block contenu %}
+    {% include "politicien/formulaire.html.twig" %}
+    <p>Attention ! vous modifiez un politicien existant.</p>
+    <p><a href="{{ path('politicien_accueil') }}">Abandonner</a></p>
+{% endblock %}

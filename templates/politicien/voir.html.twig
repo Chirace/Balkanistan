@@ -7,5 +7,13 @@
     <li>Nom : {{ politicien.nom }}</li>
     <li>Sexe : {{ politicien.sexe }}</li>
     <li>Age : {{ politicien.age }}</li>
+    <li>Parti : {{ politicien.parti }}</li>
+    <li>Mairie : {{ politicien.mairie }}</li>
+    <li>Affaires associées : </li>
+    <ul>
+        {% for affaire in politicien.affaires %}
+            <li>{{ affaire.designation }}</li>
+        {% endfor %}
+    </ul>
 </ul>
 {% endblock %}
