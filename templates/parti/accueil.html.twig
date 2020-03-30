@@ -7,7 +7,10 @@
 
     <ul>
         {% for parti in partis %}
-            <li>Parti :{{ parti.nom }} <a href="{{ path('parti_voir', { 'id': parti.id }) }}">voir le parti</a></li>
+            <li>
+                Parti :{{ parti.nom }} <a href="{{ path('parti_voir', { 'id': parti.id }) }}">voir le parti</a>
+                <a href="{{ path('parti_supprimer', { 'id': parti.id }) }}">supprimer le parti</a>
+            </li>
         {% endfor %}
     </ul> 
 

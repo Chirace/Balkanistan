@@ -1,6 +1,6 @@
 {% extends "parti/layoutparti.html.twig" %}
 {% block titre %}
-    {{ parent() }} : Parti {{ parti.nom }}
+    {{ parent() }} : Parti "{{ parti.nom }}" : (id={{ parti.id }})
 {% endblock %}
 {% block contenu %}
 <ul>

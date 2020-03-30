@@ -33,7 +33,6 @@ class PartiController extends AbstractController {
         $parti = $this->getDoctrine()->getRepository(Parti::class)->find($id);
         if(!$parti)
             throw $this->createNotFoundException('Parti[id='.$id.'] inexistante');
-        //$politiciens = $parti->
         return $this->render('parti/voir.html.twig', array('parti' => $parti));
     }
 
@@ -58,5 +57,21 @@ class PartiController extends AbstractController {
             return $this->redirectToRoute('parti_voir', array('id' => $parti->getId()));        
         }         
         return $this->render('parti/ajouter2.html.twig', array('monFormulaire' => $form->createView())); 
-    } 
+    }
+
+    public function supprimer($id) {
+        $parti = $this->getDoctrine()->getRepository(Parti::class)->find($id);
+        if(!$parti)
+            throw $this->createNotFoundException('Parti[id='.$id.'] inexistante');
+
+        $politiciens = $parti->getPoliticiens();
+        if(!$politiciens){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($parti);
+            $entityManager->flush();
+        }
+
+        $partis = $this->getDoctrine()->getRepository(Parti::class)->findAll();
+        return $this->render('parti/accueil.html.twig', array('partis' => $partis));
+    }
 }

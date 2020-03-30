@@ -10,6 +10,7 @@
             <li>Affaire :{{ affaire.designation }} 
                 <a href="{{ path('affaire_voir', { 'id': affaire.id }) }}">voir l'affaire</a>
                 <a href="{{ path('affaire_modifier', { 'id': affaire.id }) }}">modifier l'affaire</a>
+                <a href="{{ path('affaire_modifier2', { 'id': affaire.id }) }}">ajouter un politicien</a>
             </li>
         {% endfor %}
     </ul> 

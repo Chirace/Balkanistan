@@ -11,7 +11,7 @@
     <li>Mairie : {{ politicien.mairie }}</li>
     <li>Affaires associées : </li>
     <ul>
-        {% for affaire in politicien.affaires %}
+        {% for affaire in politicien.affaire %}    
             <li>{{ affaire.designation }}</li>
         {% endfor %}
     </ul>

@@ -68,6 +68,10 @@ parti_ajouter2:
   path:  /parti/ajouter2    
   controller: App\Controller\PartiController::ajouter2
 
+parti_supprimer:     
+  path:  /parti/supprimer/{id}   
+  controller: App\Controller\PartiController::supprimer
+
 politicien_accueil:
   path: /Politicien
   controller: App\Controller\PoliticienController::accueil
@@ -136,6 +140,12 @@ affaire_ajouter2:
 affaire_modifier:
   path:  /affaire/modifier/{id}
   controller: App\Controller\AffaireController::modifier
+  requirements:
+    id: \d+
+
+affaire_modifier2:
+  path:  /affaire/modifier2/{id}
+  controller: App\Controller\AffaireController::modifier2
   requirements:
     id: \d+
 

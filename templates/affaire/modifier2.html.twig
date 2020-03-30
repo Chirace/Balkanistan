@@ -1,0 +1,8 @@
+{% extends "affaire/layoutaffaire.html.twig" %}
+{% block titre %}
+    {{ parent() }} - ajout politicien à l'affaire
+{% endblock %}
+{% block contenu %}
+    {% include "affaire/formulaireAjoutPoliticien.html.twig" %}
+    <p><a href="{{ path('affaire_accueil') }}">Abandonner</a></p>
+{% endblock %}

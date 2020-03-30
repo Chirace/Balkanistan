@@ -6,10 +6,15 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface; 
 use Symfony\Component\OptionsResolver\OptionsResolver; 
 use App\Entity\Affaire;
+use App\Entity\Politicien;
 
 class AffaireType extends AbstractType {     
     public function buildForm(FormBuilderInterface $builder, array $options) {   
-        $builder->add('designation', TextType::class);
+        $builder->add('designation', TextType::class)
+                ->add('politicien', EntityType::class, [
+                    'class' => Politicien::class,
+                    'choice_label' => 'nom',
+                ]);
     }     
     
     public function configureOptions(OptionsResolver $resolver) {         

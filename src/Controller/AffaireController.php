@@ -3,6 +3,7 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Affaire;
+use App\Entity\Politicien;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType; 
 
 use App\Form\Type\AffaireType;
+//use App\Form\Type\PoliticienType;
 
 class AffaireController extends AbstractController {
     public function accueil(Session $session) {
@@ -68,6 +70,15 @@ class AffaireController extends AbstractController {
         $form = $this->createForm(AffaireType::class, $affaire, ['action' => $this->generateUrl('affaire_modifier_suite', array('id' => $affaire->getId()))]);
         $form->add('submit', SubmitType::class, array('label' => 'Modifier'));
         return $this->render('affaire/modifier.html.twig', array('monFormulaire' => $form->createView()));
+    }
+
+    public function modifier2($id) {
+        $affaire = $this->getDoctrine()->getRepository(Affaire::class)->find($id);
+        if(!$affaire)
+            throw $this->createNotFoundException('Affaire[id='.$id.'] inexistante');
+        $form = $this->createForm(AffaireType::class, $affaire, ['action' => $this->generateUrl('affaire_modifier_suite', array('id' => $affaire->getId()))]);
+        $form->add('submit', SubmitType::class, array('label' => 'Modifier'));
+        return $this->render('affaire/modifier2.html.twig', array('monFormulaire' => $form->createView()));
     }
 
     public function modifierSuite(Request $request, $id) {

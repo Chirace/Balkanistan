@@ -21,8 +21,9 @@ class PoliticienType extends AbstractType {
                 ])
                 ->add('mairie', EntityType::class, [
                     'class' => Mairie::class,
-                    'choice_label' => 'ville',
-                ]);
+                    'choice_label' => 'ville',]
+                    //'-----' => null,
+                );
     }     
     
     public function configureOptions(OptionsResolver $resolver) {         
