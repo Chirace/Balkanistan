@@ -4,12 +4,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Affaire;
 use App\Entity\Politicien;
+use App\Entity\Parti;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType; 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType; 
 
 use App\Form\Type\AffaireType;
 //use App\Form\Type\PoliticienType;
@@ -72,12 +74,25 @@ class AffaireController extends AbstractController {
         return $this->render('affaire/modifier.html.twig', array('monFormulaire' => $form->createView()));
     }
 
-    public function modifier2($id) {
+    public function modifier2(Request $request, $id) {
         $affaire = $this->getDoctrine()->getRepository(Affaire::class)->find($id);
         if(!$affaire)
             throw $this->createNotFoundException('Affaire[id='.$id.'] inexistante');
-        $form = $this->createForm(AffaireType::class, $affaire, ['action' => $this->generateUrl('affaire_modifier_suite', array('id' => $affaire->getId()))]);
-        $form->add('submit', SubmitType::class, array('label' => 'Modifier'));
+        $form = $this->createFormBuilder($affaire)
+            //->add('designation', TextType::class)
+            ->add('politiciens', EntityType::class, [
+                'class' => Politicien::class,
+                'choice_label' => 'nom',])->getForm(); 
+        $form->add('submit', SubmitType::class, array('label' => 'Ajouter'));
+        $form->handleRequest($request);         
+        if ($form->isSubmitted() && $form->isValid()) {             
+            $entityManager = $this->getDoctrine()->getManager();              
+            $entityManager->persist($affaire);              
+            $entityManager->flush();              
+            return $this->redirectToRoute('affaire_voir', array('id' => $affaire->getId()));        
+        }
+        //$form = $this->createForm(AffaireType::class, $affaire, ['action' => $this->generateUrl('affaire_modifier_suite', array('id' => $affaire->getId()))]);
+        
         return $this->render('affaire/modifier2.html.twig', array('monFormulaire' => $form->createView()));
     }
 
@@ -98,5 +113,29 @@ class AffaireController extends AbstractController {
             return $this->redirect($url);
         }
         return $this->render('affaire/modifier.html.twig', array('monFormulaire' => $form->createView()));
+    }
+
+    public function supprimer($id) {
+        $entityManager = $this->getDoctrine()->getManager();
+        $affaire = $this->getDoctrine()->getRepository(Affaire::class)->find($id);
+        $listPol = $this->getDoctrine()->getRepository(Politicien::class)->findBy(array("affaire" => $id));
+        if(!$affaire)
+            throw $this->createNotFoundException('Affaire[id='.$id.'] inexistante');
+        
+        if(!$listPol){ 
+            $entityManager->persist($affaire);
+            $entityManager->remove($affaire);
+            $entityManager->flush();
+            return $this->redirectToRoute('affaire_accueil', array('affaires' => $affaire));
+        } else {
+            throw $this->createNotFoundException('Affaire concerne des candidats');
+        }
+    }
+
+    public function recherche(Request $request) : Response {
+        $search = $request->query->all();
+        $res = $this->getDoctrine()->getRepository(Affaire::class)->findAllByDesignation($search["search"]);
+
+        return $this->render('affaire/recherche.html.twig', ['affaires' => $res,]);
     }
 }

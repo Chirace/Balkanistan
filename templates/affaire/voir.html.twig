@@ -5,6 +5,11 @@
 {% block contenu %}
 <ul>
     <li>Designation : {{ affaire.designation }}</li>
-    <li>Politiciens associés : {{ affaire.Politiciens}} </li>
+    <li>Politiciens associés : </li>
+    <ul>
+        {% for politicien in affaire.politiciens %}
+            <li>{{ politicien.nom }}</li>
+        {% endfor %}
+    </ul>
 </ul>
 {% endblock %}

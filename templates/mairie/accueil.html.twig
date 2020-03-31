@@ -7,7 +7,10 @@
 
     <ul>
         {% for mairie in mairies %}
-            <li>Mairie :{{ mairie.ville }} <a href="{{ path('mairie_voir', { 'id': mairie.id }) }}">voir la mairie</a></li>
+            <li>
+                Mairie :{{ mairie.ville }} <a href="{{ path('mairie_voir', { 'id': mairie.id }) }}">voir la mairie</a>
+                <a href="{{ path('mairie_supprimer', { 'id': mairie.id }) }}">supprimer la mairie</a>
+            </li>
         {% endfor %}
     </ul> 
 

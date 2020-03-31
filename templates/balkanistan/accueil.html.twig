@@ -10,4 +10,7 @@
     <p>Vous pouvez également consulter les différents partis ici : <a href="{{ path('parti_accueil') }}">Voir les Partis</a></p>
     <p>Vous pouvez accèder aux politiciens sur la page suivante : <a href="{{ path('politicien_accueil') }}">Voir les Politiciens</a></p>
     <p>Vous pouvez consulter les affaires via le lien : <a href="{{ path('affaire_accueil') }}">Voir les Affaires</a></p>
+    {% if is_granted('ROLE_USER') %}
+        <p>Lien de déconnexion : <a href="{{ path('balkanistan_logout') }}"> Logout</a></p>
+    {% endif %}
 {% endblock %}

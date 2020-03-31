@@ -19,6 +19,17 @@ class AffaireRepository extends ServiceEntityRepository
         parent::__construct($registry, Affaire::class);
     }
 
+    public function findAllByDesignation($designation)
+    {
+        return $this->getEntityManager()->createQuery('SELECT a
+                                                    FROM App\Entity\Affaire a
+                                                    WHERE a.designation LIKE :designation
+                                                    ORDER BY a.designation ASC'
+        )->setParameter('designation', "%" . $designation . "%")
+            ->getResult();
+    }
+
+
     // /**
     //  * @return Affaire[] Returns an array of Affaire objects
     //  */

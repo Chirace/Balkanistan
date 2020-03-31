@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -26,11 +27,13 @@ class Politicien
 
     /**
      * @ORM\Column(type="string", length=1)
+     * @Assert\Regex(pattern="/^(M|F)$/", message="M : Masculin, F : Féminin")
      */
     private $sexe;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\GreaterThan(value = 18, message="âge requis 18 ans")
      */
     private $age;
 

@@ -3,6 +3,7 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Mairie;
+use App\Entity\Politicien;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,5 +80,21 @@ class MairieController extends AbstractController {
         return $this->render('mairie/modifier.html.twig',array('monFormulaire' => $form->createView()));
     }*/
 
+    public function supprimer(Request $request, $id) {
+        $entityManager = $this->getDoctrine()->getManager();
+        $mairie = $this->getDoctrine()->getRepository(Mairie::class)->find($id);
+        $listPol = $this->getDoctrine()->getRepository(Politicien::class)->findBy(array("mairie" => $id));
+        if(!$mairie)
+            throw $this->createNotFoundException('Mairie[id='.$id.'] inexistante');
+        
+        if(!$listPol){ 
+            $entityManager->persist($mairie);
+            $entityManager->remove($mairie);
+            $entityManager->flush();
+            return $this->redirectToRoute('mairie_accueil', array('mairies' => $mairie));
+        } else {
+            throw $this->createNotFoundException('Mairie contient des candidats');
+        }
+    }
        
 }

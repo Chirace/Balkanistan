@@ -1,0 +1,51 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        Symfony\Component\Security\Core\User\User: 'auto'
+    providers:
+    #    users_in_memory: { memory: null }
+        inscrit_en_dur:             
+            memory:                 
+                users:                    
+                    utilisateur:  
+                        password: $argon2id$v=19$m=65536,t=4,p=1$bHpSLkxTQTlPS1FEOGRzNQ$a0kvzRp1VJQaVFnd71OEdSoV1EvFfEFvyrEy77ztn34
+                        roles: ['ROLE_USER']             
+                    secretaire:  { password: 'secret', roles: ['ROLE_SECRETAIRE'] }
+                    admin:  { password: 'admin', roles: ['ROLE_ADMIN'] } 
+    role_hierarchy:        
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SECRETAIRE : ROLE_USER
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        #main:
+        #    anonymous: lazy
+        #    provider: users_in_memory
+        accueil:            
+            pattern: ^/(balkanistan/)?$            
+            security: false        
+        
+        balkanistan_mairie:            
+            pattern: ^/
+            anonymous: true
+            form_login:                 
+                login_path:  login                 
+                check_path:  login
+            logout:                
+                path: /logout                
+                target: / 
+            http_basic: true 
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/balkanistan/$, roles: ROLE_ADMIN }
+        - { path: ^/balkanistan/$, roles: ROLE_SECRETAIRE }
+        - { path: ^/balkanistan/, roles: ROLE_USER }

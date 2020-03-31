@@ -6,6 +6,10 @@ balkanistan_accueil:
   path: /accueil
   controller: App\Controller\BalkanistanController::accueil
 
+balkanistan_logout:
+  path: /logout
+  controller: App\Controller\BalkanistanController::logout
+
 mairie_accueil:
   path: /mairie
   controller: App\Controller\MairieController::accueil
@@ -43,6 +47,10 @@ mairie_ajouter2:
 mairie_amiens:
  path: /amiens
  controller: App\Controller\MairieController::amiens
+
+mairie_supprimer:     
+  path:  /mairie/supprimer/{id}   
+  controller: App\Controller\MairieController::supprimer
 
 parti_accueil:
   path: /Parti
@@ -153,3 +161,11 @@ affaire_modifier_suite:
   path: /affaire/modifierSuite/{id}
   controller: App\Controller\AffaireController::modifierSuite
   methods: POST
+
+affaire_supprimer:     
+  path:  /affaire/supprimer/{id}   
+  controller: App\Controller\AffaireController::supprimer
+
+affaire_recherche:
+  path: /affaire/recherche
+  controller: App\Controller\AffaireController::recherche

@@ -67,7 +67,7 @@ class PoliticienController extends AbstractController {
                         'choice_label' => 'ville',])
                      ->add('envoyer', SubmitType::class)->getForm();         
         $form->handleRequest($request);         
-        if ($form->isSubmitted()) {             
+        if ($form->isSubmitted() && $form->isValid()) {             
             $entityManager = $this->getDoctrine()->getManager();              
             $entityManager->persist($politicien);              
             $entityManager->flush();              
@@ -80,6 +80,25 @@ class PoliticienController extends AbstractController {
         $politicien = $this->getDoctrine()->getRepository(Politicien::class)->find($id);
         if(!$politicien)
             throw $this->createNotFoundException('Politicien[id='.$id.'] inexistante');
+        $form = $this->createFormBuilder($politicien)//->add('nom', TextType::class)
+            ->add('sexe', TextType::class)
+            ->add('age', IntegerType::class)
+            ->add('parti', EntityType::class, [
+               'class' => Parti::class,
+               'choice_label' => 'nom',])
+            ->add('mairie', EntityType::class, [
+               'class' => Mairie::class,
+               'choice_label' => 'ville',])
+            ->add('envoyer', SubmitType::class)->getForm();
+        $form->add('submit', SubmitType::class, array('label' => 'Modifier'));
+        //$form->handleRequest($request);         
+        if ($form->isSubmitted() && $form->isValid()) {             
+            $entityManager = $this->getDoctrine()->getManager();              
+            $entityManager->persist($politicien);              
+            $entityManager->flush();              
+            return $this->redirectToRoute('politicien_modifier_suite', array('id' => $politicien->getId()));        
+        }   
+        //$form->handleRequest($request);
         $form = $this->createForm(PoliticienType::class, $politicien, ['action' => $this->generateUrl('politicien_modifier_suite', array('id' => $politicien->getId()))]);
         $form->add('submit', SubmitType::class, array('label' => 'Modifier'));
         return $this->render('politicien/modifier.html.twig', array('monFormulaire' => $form->createView()));
@@ -104,15 +123,14 @@ class PoliticienController extends AbstractController {
     }
 
     public function supprimer($id) {
-        $em = $this->getDoctrine()->getManager();
+        $entityManager = $this->getDoctrine()->getManager();
         $politicien = $this->getDoctrine()->getRepository(Politicien::class)->find($id);
         if(!$politicien)
             throw $this->createNotFoundException('Politicien[id='.$id.'] inexistante');
-
-
-        $form = $this->createForm(PoliticienType::class, $politicien, ['action' => $this->generateUrl('politicien_modifier_suite', array('id' => $politicien->getId()))]);
-        $form->add('submit', SubmitType::class, array('label' => 'Modifier'));
-        return $this->render('politicien/modifier.html.twig', array('monFormulaire' => $form->createView()));
+        
+        $entityManager->persist($politicien);
+        $entityManager->remove($politicien);
+        $entityManager->flush();
+        return $this->redirectToRoute('politicien_accueil', array('politicien' => $politicien));
     }
-
 }

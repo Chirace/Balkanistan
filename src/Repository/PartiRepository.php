@@ -19,6 +19,20 @@ class PartiRepository extends ServiceEntityRepository
         parent::__construct($registry, Parti::class);
     }
 
+    public function findBySexe($sexe)
+    {
+        $queryBuilder = $this->createQueryBuilder('s');    
+        $queryBuilder->where('s.sexe = :sexe')         
+            ->setParameter('sexe', $sexe);
+        return $queryBuilder->getQuery()->getResult(); 
+
+        /*return $this->getEntityManager()->createQuery('SELECT a
+                                                    FROM App\Entity\Parti a
+                                                    WHERE a.sexe LIKE :sexe'
+        )->setParameter('sexe', "%" . $sexe . "%")
+            ->getResult();*/
+    }
+
     // /**
     //  * @return Parti[] Returns an array of Parti objects
     //  */

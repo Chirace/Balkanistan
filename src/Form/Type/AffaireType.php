@@ -11,10 +11,10 @@ use App\Entity\Politicien;
 class AffaireType extends AbstractType {     
     public function buildForm(FormBuilderInterface $builder, array $options) {   
         $builder->add('designation', TextType::class)
-                ->add('politicien', EntityType::class, [
+                /*->add('politiciens', EntityType::class, [
                     'class' => Politicien::class,
                     'choice_label' => 'nom',
-                ]);
+                ])*/;
     }     
     
     public function configureOptions(OptionsResolver $resolver) {         

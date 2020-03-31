@@ -13,15 +13,16 @@
     </form>
 
     <ul>
+        <li>Affaires trouvées : </li>
         {% for affaire in affaires %}
-            <li>Affaire :{{ affaire.designation }} 
-                <a href="{{ path('affaire_voir', { 'id': affaire.id }) }}">voir l'affaire</a>
-                <a href="{{ path('affaire_modifier', { 'id': affaire.id }) }}">modifier l'affaire</a>
-                <a href="{{ path('affaire_modifier2', { 'id': affaire.id }) }}">ajouter un politicien</a>
-                <a href="{{ path('affaire_supprimer', { 'id': affaire.id }) }}">supprimer l'affaire</a>
-            </li>
+            <ul>
+                <li>Designation : {{ affaire.designation }}
+                    <a href="{{ path('affaire_voir', {'id': affaire.id}) }}">voir</a>
+                    <a href="{{ path('affaire_modifier', {'id': affaire.id}) }}">modifier</a>
+                </li>
+            </ul>
         {% endfor %}
-    </ul> 
+    </ul>
 
     <p><a href="{{ path('affaire_ajouter2') }}">ajouter une affaire</a></p>
 
